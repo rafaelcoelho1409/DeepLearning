@@ -2,7 +2,7 @@
 
 ## Objetivo
 Basicamente, transformei minha revisão de estudos de deep learning em um projeto, e estou disponibilizando em formato de site do Streamlit.  
-OBS: O projeto inicial era uma aplicação de quatro páginas, porém o Streamlit Share não suportou tantos dados em um projeto só, portanto precisei particionar em quatro páginas.
+OBS: O projeto inicial era uma aplicação de quatro páginas, porém o Streamlit Share não suportou tantos dados em um projeto só, portanto precisei particionar em quatro páginas. 
 OBS: Caso você acesse alguma dessas páginas em um smartphone, use no modo paisagem (horizontal) para que as imagens fiquem em tamanho correto.
 
 ## Links deste projeto
