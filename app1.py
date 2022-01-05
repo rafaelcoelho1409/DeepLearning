@@ -153,7 +153,7 @@ class Page:
                     st.plotly_chart(self.fig1)
                     st.plotly_chart(self.fig2)
 
-        with st.expander('Código Fonte', expanded = True):
+        with st.expander('Código Fonte'):
             st.header('Código Fonte')
             self.python_file = open('app1.py', 'r').read()
             st.code(self.python_file, language = 'python')
