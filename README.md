@@ -1,9 +1,11 @@
 # Deep Learning usando Tensorflow & Keras
 
 ## Objetivo
-Basicamente, transformei minha revisão de estudos de deep learning em um projeto, e estou disponibilizando em formato de site do Streamlit.
+Basicamente, transformei minha revisão de estudos de deep learning em um projeto, e estou disponibilizando em formato de site do Streamlit.  
+OBS: O projeto inicial era uma aplicação de quatro páginas, porém o Streamlit Share não suportou tantos dados em um projeto só, portanto precisei particionar em quatro páginas.
+OBS: Caso você acesse alguma dessas páginas em um smartphone, use no modo paisagem (horizontal) para que as imagens fiquem em tamanho correto.
 
-## Link deste projeto
+## Links deste projeto
 A postar
 
 ## Recursos utilizados
@@ -24,11 +26,10 @@ A postar
 - PIL
 
 ## Tópicos abordados neste projeto
-- Redes Neurais Simples - MNIST
-- Redes Neurais Convolucionais - CNNs
-- Predições com redes neurais pré-treinadas
-- Aplicação com Tensorflow Hub
-- Código Python do projeto
+- Redes Neurais Simples - MNIST (app1.py)
+- Redes Neurais Convolucionais - CNNs (app2.py)
+- Predições com redes neurais pré-treinadas (app3.py)
+- Aplicação com Tensorflow Hub (app4.py)
 
 ## Para executar esse arquivo localmente em sua máquina
 - baixe esse repositório em sua máquina:
@@ -38,11 +39,11 @@ A postar
 - escolha seu interpretador python (python3, python3.x)  
 - execute os seguintes comandos (para Linux):
 > cd DeepLearning  
-> streamlit run dl_streamlit.py  
+> streamlit run appX.py (substitua o X por 1, 2, 3 ou 4)  
 - Com esses comandos, a página será aberta automaticamente. Caso não abra, vá até seu navegador e digite:
 > http://localhost:8501  
 
-## Screenshots da página construída
+## Screenshots do projeto construído
 <img src="screenshots/screenshot01.png" width="800" height="400"/>
 <img src="screenshots/screenshot02.png" width="800" height="400"/>
 <img src="screenshots/screenshot03.png" width="800" height="400"/>

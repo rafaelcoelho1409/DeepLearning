@@ -13,6 +13,10 @@ class Page:
 
     def page(self):
         st.title('Redes Neurais Convolucionais - CNNs')
+        st.caption(
+            """Caso você acesse alguma dessas páginas em um smartphone, 
+            use no modo paisagem (horizontal) para que as imagens fiquem em tamanho correto."""
+        )
         with st.expander('1. Informações sobre o conjunto de dados CIFAR-10', expanded = True):
             st.header('Informações sobre o conjunto de dados CIFAR-10')
             st.write(
@@ -253,5 +257,11 @@ class Page:
                             'apenas para fins ilustrativos e didáticos.')
                     st.write('Em geral, usa-se redes neurais já treinadas e salvas para se fazer predições, quando a aplicação '
                             'não exige constante atualização.')
+
+        with st.expander('Código Fonte'):
+            st.header('Código Fonte')
+            self.python_file = open('app2.py', 'r').read()
+            st.code(self.python_file, language = 'python')
+
 
 page = Page().page()

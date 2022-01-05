@@ -11,6 +11,10 @@ class Page:
 
     def page(self):
         st.title('Aplicação do Tensorflow Hub')
+        st.caption(
+            """Caso você acesse alguma dessas páginas em um smartphone, 
+            use no modo paisagem (horizontal) para que as imagens fiquem em tamanho correto."""
+        )
         st.write(
             """Muitas vezes, criar e treinar uma rede neural do zero é um processo demorado, que pode levar
             horas ou até mesmo dias, devido a limitação de hardware da máquina que processa a rede neural,
@@ -105,5 +109,10 @@ class Page:
                 self.final_subplots.update_yaxes(showticklabels = False)
                 st.plotly_chart(self.final_subplots)
                 st.image(self.download_image.numpy(), caption = 'Resultado Final')
+
+        with st.expander('Código Fonte'):
+            st.header('Código Fonte')
+            self.python_file = open('app4.py', 'r').read()
+            st.code(self.python_file, language = 'python')
 
 page = Page().page()

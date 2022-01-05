@@ -17,6 +17,10 @@ class Page:
         self.y_test_reshaped = tf.keras.utils.to_categorical(self.y_test, 10)
         
         st.title('Redes Neurais Simples - MNIST')
+        st.caption(
+            """Caso você acesse alguma dessas páginas em um smartphone, 
+            use no modo paisagem (horizontal) para que as imagens fiquem em tamanho correto."""
+        )
         with st.expander('1. Informações sobre o conjunto de dados MNIST', expanded = True):
             st.header('Informações sobre o conjunto de dados MNIST')
             st.write(
@@ -59,7 +63,7 @@ class Page:
             st.plotly_chart(self.fig)
             st.caption('O conjunto é levemente desbalanceado em relação a cada classe.')
 
-        with st.expander('2. Visualização das imagens do conjunto de dados', expanded = True):
+        with st.expander('2. Visualização das imagens do conjunto de dados'):
             st.header('Visualização das imagens do conjunto de dados')
             self.container = st.container()
             self.index = st.number_input('Índice da imagem; Anterior (-) | Próxima (+)', 
@@ -148,5 +152,11 @@ class Page:
                                     title = 'Perda / taxa de erro por época')
                     st.plotly_chart(self.fig1)
                     st.plotly_chart(self.fig2)
+
+        with st.expander('Código Fonte', expanded = True):
+            st.header('Código Fonte')
+            self.python_file = open('app1.py', 'r').read()
+            st.code(self.python_file, language = 'python')
+
 
 page = Page().page()

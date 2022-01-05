@@ -12,6 +12,10 @@ class Page:
 
     def page(self):
         st.title('Predições com redes neurais pré-treinadas')
+        st.caption(
+            """Caso você acesse alguma dessas páginas em um smartphone, 
+            use no modo paisagem (horizontal) para que as imagens fiquem em tamanho correto."""
+        )
         with st.expander('1. Rede neural pré-treinada VGG16', expanded = True):
             st.header('Rede neural pré-treinada VGG16')
             st.write(
@@ -100,5 +104,11 @@ class Page:
                         st.metric(self.P[0][3][1], '{:.2f}%'.format(self.P[0][3][2] * 100))
                     with self.col44:
                         st.metric(self.P[0][4][1], '{:.2f}%'.format(self.P[0][4][2] * 100))
+
+        with st.expander('Código Fonte'):
+            st.header('Código Fonte')
+            self.python_file = open('app3.py', 'r').read()
+            st.code(self.python_file, language = 'python')
+
 
 page = Page().page()
