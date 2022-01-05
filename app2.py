@@ -29,7 +29,7 @@ class Page:
                 - Cachorro  
                 - Sapo  
                 - Cavalo  
-                - Barcdeeplearning/dl_streamlit.pyo  
+                - Barco  
                 - Caminhão""")
             ##### Importando o conjunto de dados
             (self.x_train, self.y_train), (self.x_test, self.y_test) = tf.keras.datasets.cifar10.load_data()
