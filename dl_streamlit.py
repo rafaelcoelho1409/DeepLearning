@@ -39,6 +39,10 @@ class MultiPage:
         self.y_test_reshaped = tf.keras.utils.to_categorical(self.y_test, 10)
         
         st.title('Redes Neurais Simples - MNIST')
+        st.caption(
+            """Caso você acesse alguma dessas páginas em um smartphone, 
+            use no modo paisagem (horizontal) para que as imagens fiquem em tamanho correto."""
+        )
         with st.expander('1. Informações sobre o conjunto de dados MNIST', expanded = True):
             st.header('Informações sobre o conjunto de dados MNIST')
             st.write(
@@ -173,6 +177,10 @@ class MultiPage:
 
     def page_2(self):
         st.title('Redes Neurais Convolucionais - CNNs')
+        st.caption(
+            """Caso você acesse alguma dessas páginas em um smartphone, 
+            use no modo paisagem (horizontal) para que as imagens fiquem em tamanho correto."""
+        )
         with st.expander('1. Informações sobre o conjunto de dados CIFAR-10', expanded = True):
             st.header('Informações sobre o conjunto de dados CIFAR-10')
             st.write(
@@ -278,22 +286,10 @@ class MultiPage:
                                                                         height_shift_range = 0.2,
                                                                         horizontal_flip = True)
             self.datagen.fit(self.x_train_norm)
-            self.datagen_plot = tf.keras.preprocessing.image.ImageDataGenerator(
-                                                                        rotation_range = 30,
-                                                                        width_shift_range = 0.2,
-                                                                        height_shift_range = 0.2,
-                                                                        horizontal_flip = True)
-            self.datagen_plot.fit(self.x_train)
-            #OBS: foram usados dois geradores de imagens. O datagen será usado para os dados normalizados,
-            #que serão usados na rede neural. O datagen_plot é apenas para mostrar as transformações nas imagens,
-            #ou seja, meramente ilustrativo.
-            ##1000 batches (lotes) de 50 amostras
             self.batches = self.datagen.flow(self.x_train_norm, self.y_train_reshaped, batch_size = 100)
-            self.batches_plot = self.datagen_plot.flow(self.x_train, self.y_train_reshaped, batch_size = 200)
-            #st.write(self.batches[0][0][0].shape)
             self.batches_subplots = make_subplots(rows = 3, cols = 3)
             for i in range(9):
-                globals()['batch_image_{}'.format(i)] = self.batches_plot[0][0][i]
+                globals()['batch_image_{}'.format(i)] = (self.batches[0][0][i] * self.std) + self.mean
                 globals()['batch_fig_{}'.format(i)] = px.imshow(globals()['batch_image_{}'.format(i)])
                 self.batches_subplots.add_trace(globals()['batch_fig_{}'.format(i)].data[0],
                                                 row = int(i/3)+1,
@@ -342,7 +338,7 @@ class MultiPage:
                 o número de camadas de cores salta (3 > 32 > 64 > 128). Por exemplo, o tensor da imagem tem tamanho (32,32,3),
                 e ao passar pela primeira camada de convolução, passa a ter tamanho (32,32,32)."""
             )
-            self.example_image = self.batches_plot[0][0][0]
+            self.example_image = (self.batches[0][0][0] * self.std) + self.mean
             #o tensor precisa ter 4 dimensões para fluir pela rede neural
             self.example_image = tf.expand_dims(self.example_image, axis = 0)
             #1st block
@@ -356,7 +352,7 @@ class MultiPage:
             self.subplots = make_subplots(rows = 3, cols = 6)
             self.im1 = [self.im1_0, self.im1_1, self.im1_2, self.im1_3, self.im1_4, self.im1_5]
             for i, im in enumerate(self.im1):
-                globals()['imshow1_{}'.format(i)] = px.imshow(im[0,:,:,:3],)
+                globals()['imshow1_{}'.format(i)] = px.imshow(im[0,:,:,:3])
             for i in range(6):
                 self.subplots.add_trace(globals()['imshow1_{}'.format(i)].data[0], row = 1, col = i + 1)
             self.example_plot = px.imshow(self.example_image[0])
@@ -377,45 +373,14 @@ class MultiPage:
                 """Após passar por todas estas camadas em sequência, o tensor é transformado em um vetor unidimensional
                 (camada Flatten), e a partir disso, são camadas de perceptrons (Multilayer Perceptrons) para se obter a
                 predição de qual classe aquela imagem pertence (camada Dense), ou seja, se aquela imagem é de um avião,
-                ou de um cachorro, ou de um gato etc."""
-            )
-
-        with st.expander('6. Treinando a rede neural e verificando acurácia', expanded = True):
-            st.header('Treinando a rede neural e verificando acurácia')
-            self.optim = st.selectbox('Escolha o otimizador da rede neural', ['SGD', 'Adam', 'RMSprop'])
-            st.caption('Número de épocas: 2')
-            st.caption('Número de images por lote: 100')
-            st.caption('A rede neural leva aproximadamente 5 minutos para ser treinada.')
-            self.model.compile(loss = 'categorical_crossentropy', 
-                                optimizer = self.optim, 
-                                metrics = ['accuracy'])
-            self.train_nn = st.button('Treinar rede neural')
-            if self.train_nn:
-                with st.spinner('Treinando rede neural. Aguarde.'):
-                    self.start = time.time()
-                    self.history = self.model.fit(self.batches, 
-                                            epochs = 2, 
-                                            validation_data = (self.x_test_norm, self.y_test_reshaped))
-                    self.end = time.time()
-                    st.write('O tempo de treino da rede neural foi de {:.2f} segundos'.format(self.end - self.start))
-                    self.col30, self.col31, self.col32, self.col33 = st.columns(4)
-                    with self.col30:
-                        st.metric('Acurácia de treino', '{:.2f}%'.format(self.history.history['accuracy'][0] * 100))
-                    with self.col31:
-                        st.metric('Erro de treino', '{:.2f}'.format(self.history.history['loss'][0]))
-                    with self.col32:
-                        st.metric('Acurácia de teste', '{:.2f}%'.format(self.history.history['val_accuracy'][0] * 100))
-                    with self.col33:
-                        st.metric('Erro de teste', '{:.2f}'.format(self.history.history['val_loss'][0]))
-                    st.write('Quanto maior for a rede, quanto mais épocas e quanto mais lotes tiver seu conjunto de dados, '
-                            'mais demorado será o treino, porém muito mais acertos sua rede terá. Neste caso, a rede neural construída '
-                            'teve baixa acurácia por ser curta e ter apenas uma época, para não demorar muito. Esta construção é '
-                            'apenas para fins ilustrativos e didáticos.')
-                    st.write('Em geral, usa-se redes neurais já treinadas e salvas para se fazer predições, quando a aplicação '
-                            'não exige constante atualização.')
-      
+                ou de um cachorro, ou de um gato etc.""")
+            
     def page_3(self):
         st.title('Predições com redes neurais pré-treinadas')
+        st.caption(
+            """Caso você acesse alguma dessas páginas em um smartphone, 
+            use no modo paisagem (horizontal) para que as imagens fiquem em tamanho correto."""
+        )
         with st.expander('1. Rede neural pré-treinada VGG16', expanded = True):
             st.header('Rede neural pré-treinada VGG16')
             st.write(
@@ -504,9 +469,13 @@ class MultiPage:
                         st.metric(self.P[0][3][1], '{:.2f}%'.format(self.P[0][3][2] * 100))
                     with self.col44:
                         st.metric(self.P[0][4][1], '{:.2f}%'.format(self.P[0][4][2] * 100))
-
+                        
     def page_4(self):
         st.title('Aplicação do Tensorflow Hub')
+        st.caption(
+            """Caso você acesse alguma dessas páginas em um smartphone, 
+            use no modo paisagem (horizontal) para que as imagens fiquem em tamanho correto."""
+        )
         st.write(
             """Muitas vezes, criar e treinar uma rede neural do zero é um processo demorado, que pode levar
             horas ou até mesmo dias, devido a limitação de hardware da máquina que processa a rede neural,
