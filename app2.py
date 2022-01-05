@@ -209,42 +209,7 @@ class Page:
                 """Após passar por todas estas camadas em sequência, o tensor é transformado em um vetor unidimensional
                 (camada Flatten), e a partir disso, são camadas de perceptrons (Multilayer Perceptrons) para se obter a
                 predição de qual classe aquela imagem pertence (camada Dense), ou seja, se aquela imagem é de um avião,
-                ou de um cachorro, ou de um gato etc."""
-            )
-
-        with st.expander('6. Treinando a rede neural e verificando acurácia', expanded = True):
-            st.header('Treinando a rede neural e verificando acurácia')
-            st.caption('Número de épocas: 2')
-            st.caption('Número de images por lote: 100')
-            st.caption('Otimizador: Adam')
-            st.caption('A rede neural leva aproximadamente 5 minutos para ser treinada.')
-            self.model.compile(loss = 'categorical_crossentropy', 
-                                optimizer = 'Adam', 
-                                metrics = ['accuracy'])
-            self.train_nn = st.button('Treinar rede neural')
-            if self.train_nn:
-                with st.spinner('Treinando rede neural. Aguarde.'):
-                    self.start = time.time()
-                    self.history = self.model.fit(self.batches, 
-                                            epochs = 2, 
-                                            validation_data = (self.x_test_norm, self.y_test_reshaped))
-                    self.end = time.time()
-                    st.write('O tempo de treino da rede neural foi de {:.2f} segundos'.format(self.end - self.start))
-                    self.col30, self.col31, self.col32, self.col33 = st.columns(4)
-                    with self.col30:
-                        st.metric('Acurácia de treino', '{:.2f}%'.format(self.history.history['accuracy'][0] * 100))
-                    with self.col31:
-                        st.metric('Erro de treino', '{:.2f}'.format(self.history.history['loss'][0]))
-                    with self.col32:
-                        st.metric('Acurácia de teste', '{:.2f}%'.format(self.history.history['val_accuracy'][0] * 100))
-                    with self.col33:
-                        st.metric('Erro de teste', '{:.2f}'.format(self.history.history['val_loss'][0]))
-                    st.write('Quanto maior for a rede, quanto mais épocas e quanto mais lotes tiver seu conjunto de dados, '
-                            'mais demorado será o treino, porém muito mais acertos sua rede terá. Neste caso, a rede neural construída '
-                            'teve baixa acurácia por ser curta e ter apenas uma época, para não demorar muito. Esta construção é '
-                            'apenas para fins ilustrativos e didáticos.')
-                    st.write('Em geral, usa-se redes neurais já treinadas e salvas para se fazer predições, quando a aplicação '
-                            'não exige constante atualização.')
+                ou de um cachorro, ou de um gato etc.""")
 
         with st.expander('Código Fonte'):
             st.header('Código Fonte')
