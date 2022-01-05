@@ -61,9 +61,7 @@ class Page:
             #A imagem de conteúdo pode ter qualquer tamanho
             #A imagem de estilo deve ter tamanho 256x256
             self.hub_module = hub.load('https://tfhub.dev/google/magenta/arbitrary-image-stylization-v1-256/2')
-            with st.spinner('Carregando o resultado'):
-                self.outputs = self.hub_module(tf.constant(self.content_image1), tf.constant(self.style_image1))
-            self.stylized_image = self.outputs[0][0]
+            self.stylized_image = tf.keras.utils.load_img('image3.jpeg')
             self.stylized_fig = px.imshow(self.stylized_image)
             self.stylized_fig.update_xaxes(showticklabels = False, title_text = 'Resultado final da transferência de estilo')
             self.stylized_fig.update_yaxes(showticklabels = False)
