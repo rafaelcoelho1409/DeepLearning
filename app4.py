@@ -11,6 +11,7 @@ class Page:
 
     def page(self):
         st.title('Aplicação do Tensorflow Hub')
+        st.write('_Autor: Rafael Silva Coelho_')
         st.caption(
             """Caso você acesse alguma dessas páginas em um smartphone, 
             use no modo paisagem (horizontal) para que as imagens fiquem em tamanho correto."""
