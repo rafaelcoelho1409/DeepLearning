@@ -122,22 +122,10 @@ class Page:
                                                                         height_shift_range = 0.2,
                                                                         horizontal_flip = True)
             self.datagen.fit(self.x_train_norm)
-            self.datagen_plot = tf.keras.preprocessing.image.ImageDataGenerator(
-                                                                        rotation_range = 30,
-                                                                        width_shift_range = 0.2,
-                                                                        height_shift_range = 0.2,
-                                                                        horizontal_flip = True)
-            self.datagen_plot.fit(self.x_train)
-            #OBS: foram usados dois geradores de imagens. O datagen será usado para os dados normalizados,
-            #que serão usados na rede neural. O datagen_plot é apenas para mostrar as transformações nas imagens,
-            #ou seja, meramente ilustrativo.
-            ##1000 batches (lotes) de 50 amostras
             self.batches = self.datagen.flow(self.x_train_norm, self.y_train_reshaped, batch_size = 100)
-            self.batches_plot = self.datagen_plot.flow(self.x_train, self.y_train_reshaped, batch_size = 200)
-            #st.write(self.batches[0][0][0].shape)
             self.batches_subplots = make_subplots(rows = 3, cols = 3)
             for i in range(9):
-                globals()['batch_image_{}'.format(i)] = self.batches_plot[0][0][i]
+                globals()['batch_image_{}'.format(i)] = (self.batches[0][0][i] * self.std) + self.mean
                 globals()['batch_fig_{}'.format(i)] = px.imshow(globals()['batch_image_{}'.format(i)])
                 self.batches_subplots.add_trace(globals()['batch_fig_{}'.format(i)].data[0],
                                                 row = int(i/3)+1,
@@ -186,7 +174,7 @@ class Page:
                 o número de camadas de cores salta (3 > 32 > 64 > 128). Por exemplo, o tensor da imagem tem tamanho (32,32,3),
                 e ao passar pela primeira camada de convolução, passa a ter tamanho (32,32,32)."""
             )
-            self.example_image = self.batches_plot[0][0][0]
+            self.example_image = (self.batches[0][0][0] * self.std) + self.mean
             #o tensor precisa ter 4 dimensões para fluir pela rede neural
             self.example_image = tf.expand_dims(self.example_image, axis = 0)
             #1st block
@@ -200,7 +188,7 @@ class Page:
             self.subplots = make_subplots(rows = 3, cols = 6)
             self.im1 = [self.im1_0, self.im1_1, self.im1_2, self.im1_3, self.im1_4, self.im1_5]
             for i, im in enumerate(self.im1):
-                globals()['imshow1_{}'.format(i)] = px.imshow(im[0,:,:,:3],)
+                globals()['imshow1_{}'.format(i)] = px.imshow(im[0,:,:,:3])
             for i in range(6):
                 self.subplots.add_trace(globals()['imshow1_{}'.format(i)].data[0], row = 1, col = i + 1)
             self.example_plot = px.imshow(self.example_image[0])
