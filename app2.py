@@ -29,7 +29,7 @@ class Page:
                 - Cachorro  
                 - Sapo  
                 - Cavalo  
-                - Barco  
+                - Barcdeeplearning/dl_streamlit.pyo  
                 - Caminhão""")
             ##### Importando o conjunto de dados
             (self.x_train, self.y_train), (self.x_test, self.y_test) = tf.keras.datasets.cifar10.load_data()
@@ -214,19 +214,19 @@ class Page:
 
         with st.expander('6. Treinando a rede neural e verificando acurácia', expanded = True):
             st.header('Treinando a rede neural e verificando acurácia')
-            self.optim = st.selectbox('Escolha o otimizador da rede neural', ['SGD', 'Adam', 'RMSprop'])
-            st.caption('Número de épocas: 1')
+            st.caption('Número de épocas: 2')
             st.caption('Número de images por lote: 100')
+            st.caption('Otimizador: Adam')
             st.caption('A rede neural leva aproximadamente 5 minutos para ser treinada.')
             self.model.compile(loss = 'categorical_crossentropy', 
-                                optimizer = self.optim, 
+                                optimizer = 'Adam', 
                                 metrics = ['accuracy'])
             self.train_nn = st.button('Treinar rede neural')
             if self.train_nn:
                 with st.spinner('Treinando rede neural. Aguarde.'):
                     self.start = time.time()
                     self.history = self.model.fit(self.batches, 
-                                            epochs = 1, 
+                                            epochs = 2, 
                                             validation_data = (self.x_test_norm, self.y_test_reshaped))
                     self.end = time.time()
                     st.write('O tempo de treino da rede neural foi de {:.2f} segundos'.format(self.end - self.start))
