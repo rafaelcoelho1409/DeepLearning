@@ -1,12 +1,17 @@
 # Deep Learning usando Tensorflow & Keras
 
 ## Objetivo
-Basicamente, transformei minha revisão de estudos de deep learning em um projeto, e estou disponibilizando em formato de site do Streamlit.  
-OBS: O projeto inicial era uma aplicação de quatro páginas, porém o Streamlit Share não suportou tantos dados em um projeto só, portanto precisei particionar em quatro páginas.  
-OBS: Caso você acesse alguma dessas páginas em um smartphone, use no modo paisagem (horizontal) para que as imagens fiquem em tamanho correto.
+Basicamente, transformei minha revisão de estudos de deep learning em um projeto, e estou disponibilizando em formato de site do Streamlit.
+
+## Observações
+1. O projeto inicial era uma aplicação de uma página dividida em quatro partes. Porém o Streamlit Cloud suporta no máximo 500MB de dados (incluindo pacotes instalados, datasets baixados etc.). Devido a isso, precisei particionar o projeto em quatro páginas diferentes.
+2. Caso você acesse alguma dessas páginas em um smartphone, use no modo paisagem (horizontal) para que as imagens fiquem em tamanho correto.
 
 ## Links deste projeto
-A postar
+https://share.streamlit.io/rafaelcoelho1409/deeplearning/app1.py (Redes Neurais Simples - MNIST)
+https://share.streamlit.io/rafaelcoelho1409/deeplearning/app2.py (Redes Neurais Convolucionais - CNNs)
+https://share.streamlit.io/rafaelcoelho1409/deeplearning/app3.py (Predições com redes neurais pré-treinadas)
+https://share.streamlit.io/rafaelcoelho1409/deeplearning/app4.py (Aplicação do Tensorflow Hub)
 
 ## Recursos utilizados
 - Visual Studio Code
