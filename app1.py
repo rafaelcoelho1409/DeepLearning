@@ -63,7 +63,7 @@ class Page:
             st.plotly_chart(self.fig)
             st.caption('O conjunto é levemente desbalanceado em relação a cada classe.')
 
-        with st.expander('2. Visualização das imagens do conjunto de dados'):
+        with st.expander('2. Visualização das imagens do conjunto de dados', expanded = True):
             st.header('Visualização das imagens do conjunto de dados')
             self.container = st.container()
             self.index = st.number_input('Índice da imagem; Anterior (-) | Próxima (+)', 
