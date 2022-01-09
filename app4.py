@@ -71,7 +71,7 @@ class Page:
             self.col50, self.col51 = st.columns(2)
             with self.col50:
                 self.content_image2 = st.file_uploader('Envie uma foto', 
-                                                        type = ['jpg', 'png'], 
+                                                        type = ['jpg'], 
                                                         accept_multiple_files = False)
                 if self.content_image2 is not None:
                     self.content_image_plot = Image.open(self.content_image2)
@@ -79,7 +79,7 @@ class Page:
                     self.content_image2 = tf.expand_dims(self.content_image2, axis = 0)
             with self.col51:
                 self.style_image2 = st.file_uploader('Envie um desenho ou alguma arte', 
-                                                        type = ['jpg', 'png'], 
+                                                        type = ['jpg'], 
                                                         accept_multiple_files = False)
                 if self.style_image2 is not None:
                     self.style_image_plot = Image.open(self.style_image2)
