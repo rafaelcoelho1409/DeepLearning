@@ -1,6 +1,6 @@
 # Deep Learning using Tensorflow & Keras
 
-## Objetivo
+## Purpose
 Basically, I transformed my deep learning studies review into a project which has a Streamlit web page format.
 
 ## Observations
